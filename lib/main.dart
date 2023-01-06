@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -82,12 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class GoogleSignInApi {
-  static final _googleSignIn = GoogleSignIn(
-      clientId:
-          '15647749945-bu3mg29env7si59rgfinoo6vpgilfn8i.apps.googleusercontent.com',
-      scopes: [
-        'email',
-      ]);
+  static final String? clientId = Platform.isIOS
+      ? '15647749945-bu3mg29env7si59rgfinoo6vpgilfn8i.apps.googleusercontent.com'
+      : null;
+
+  static final _googleSignIn = GoogleSignIn(clientId: clientId);
 
   static Future<GoogleSignInAccount?> login() async {
     return _googleSignIn.signIn();
