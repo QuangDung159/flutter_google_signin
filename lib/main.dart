@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<GoogleSignInAccount?> signIn() async {
+    await GoogleSignInApi.login();
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline4,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => signIn(),
               child: Icon(Icons.account_circle_sharp),
             )
           ],
@@ -69,5 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+}
+
+class GoogleSignInApi {
+  static final _googleSignIn = GoogleSignIn();
+
+  static Future<GoogleSignInAccount?> login() async {
+    return _googleSignIn.signIn();
   }
 }
