@@ -41,7 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<GoogleSignInAccount?> signIn() async {
-    await GoogleSignInApi.login();
+    final res = await GoogleSignInApi.login();
+    print(res);
     return null;
   }
 
@@ -64,7 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               onPressed: () => signIn(),
-              child: Icon(Icons.account_circle_sharp),
+              child: Icon(
+                Icons.account_circle_sharp,
+              ),
             )
           ],
         ),
@@ -79,7 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class GoogleSignInApi {
-  static final _googleSignIn = GoogleSignIn();
+  static final _googleSignIn = GoogleSignIn(
+      clientId:
+          '15647749945-bu3mg29env7si59rgfinoo6vpgilfn8i.apps.googleusercontent.com',
+      scopes: [
+        'email',
+      ]);
 
   static Future<GoogleSignInAccount?> login() async {
     return _googleSignIn.signIn();
